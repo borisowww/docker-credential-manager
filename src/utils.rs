@@ -1,12 +1,12 @@
 use serde_json::Value;
-use std::path::Path;
 use std::fs;
+use std::path::Path;
 
 /**
-    * Get the full filename from the docker server url.
-    *
-    * @param url The server url.
-    * @return The full file path.
+ * Get the full filename from the docker server url.
+ *
+ * @param url The server url.
+ * @return The full file path.
 */
 pub fn config_filename_from_server_url(url: String) -> String {
     let replaced = url.replace("/", "%2F");
@@ -16,9 +16,9 @@ pub fn config_filename_from_server_url(url: String) -> String {
 }
 
 /**
-    * Get the full path to the config directory.
-    *
-    * @return The full path to the config directory.
+ * Get the full path to the config directory.
+ *
+ * @return The full path to the config directory.
 */
 pub fn get_config_directory() -> String {
     let home = std::env::var("HOME").expect("Cannot get home directory.");
@@ -27,10 +27,10 @@ pub fn get_config_directory() -> String {
 }
 
 /**
-    * Get the full path a the config file.
-    *
-    * @param path The path to the config file.
-    * @return The full path to the config file.
+ * Get the full path a the config file.
+ *
+ * @param path The path to the config file.
+ * @return The full path to the config file.
 */
 pub fn get_config_file_path(path: String) -> String {
     let config_directory = get_config_directory();
@@ -39,11 +39,11 @@ pub fn get_config_file_path(path: String) -> String {
 }
 
 /**
-    * Get a key from a config value.
-    *
-    * @param config The config value.
-    * @param key The key to get.
-    * @return The value of the key.
+ * Get a key from a config value.
+ *
+ * @param config The config value.
+ * @param key The key to get.
+ * @return The value of the key.
 */
 pub fn get_key_from_config_value(config: &Value, key: &str) -> String {
     let value = config[key]

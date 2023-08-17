@@ -1,4 +1,4 @@
-# docker-env credentials store manager
+# Docker credentials store manager
 
 ## A simple docker credentials mangager in Rust.
 
@@ -10,7 +10,12 @@ a `~/.docker/config.json` file. This is not very convenient when you have multip
 This tiny rust tool allows you to store credentials based on the registry URL.
 Whenever docker calls for credentials, this tool will read the input of the docker command and look for the registry URL credentials.
 
-Compile into a deb package via `cargo deb` and install with `sudo dpkg -i target/debian/docker-env_0.1.0_amd64.deb`.
+## Installation
+Compile into a deb package via `cargo deb` and install with
+
+```
+sudo dpkg -i target/debian/docker-credential-docker-credential-manager_0.1.0_amd64.deb
+```
 
 To set up simply update your `~/.docker/config.json` file to use the tool:
 
@@ -18,4 +23,17 @@ To set up simply update your `~/.docker/config.json` file to use the tool:
 {
   "credsStore": "docker-credential-manager"
 }
+```
+
+## Uninstall
+
+Remove the package 
+```
+sudo dpkg -r docker-credential-docker-credential-manager
+```
+
+Remove the configuration directory (optional, will delete al your credentials)
+
+```
+
 ```

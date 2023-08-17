@@ -1,13 +1,13 @@
 mod utils;
 
-use serde_json::{Value};
+use serde_json::Value;
 use std::collections::HashMap;
 use std::env;
 use std::fs;
 use std::fs::File;
 use std::io;
 use std::io::prelude::*;
-use std::io::{stdin};
+use std::io::stdin;
 use std::path::Path;
 
 extern crate base64;
@@ -38,9 +38,9 @@ fn exit_with_error(message: String) {
 }
 
 /**
-    * Store the credentials file.
-    *
-    * @param content The content of the credentials file.
+ * Store the credentials file.
+ *
+ * @param content The content of the credentials file.
 */
 fn store_credentials_file(content: String) {
     let config: Value;
@@ -68,12 +68,11 @@ fn store_credentials_file(content: String) {
 }
 
 /**
-    * Read the credentials file.
-    *
-    * @param content The content of the credentials file.
+ * Read the credentials file.
+ *
+ * @param content The content of the credentials file.
 */
 fn read_credentials_file(content: String) -> () {
-
     // Build a file path based on the server url.
     let file_path = utils::get_config_file_path(content);
 
@@ -89,12 +88,12 @@ fn read_credentials_file(content: String) -> () {
             io::stdout()
                 .write_all(buffer.as_ref())
                 .expect("Cannot write to stdout.")
-        },
+        }
     };
 }
 
 /**
-    * List all the credential files.
+ * List all the credential files.
 */
 fn list_credential_files() -> () {
     let mut filenames: HashMap<String, String> = HashMap::new();
@@ -110,11 +109,10 @@ fn list_credential_files() -> () {
             .into_string()
             .expect("Some error");
 
-        let file_content = fs::read_to_string(format!("{}/{}", &directory, &filename))
-            .expect("Cannot read file.");
+        let file_content =
+            fs::read_to_string(format!("{}/{}", &directory, &filename)).expect("Cannot read file.");
 
-        let json = serde_json::from_str::<Value>(&file_content)
-            .expect("can't load json");
+        let json = serde_json::from_str::<Value>(&file_content).expect("can't load json");
 
         let username = json.get("Username").expect("can't get username");
 
