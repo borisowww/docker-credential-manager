@@ -20,6 +20,7 @@ fn main() {
         .expect("Failed to read line.");
     let args: Vec<String> = env::args().collect();
 
+    // Print the arguments
     // Check if config directory exists, if not create it.
     // This is a bit hacky, possibly an installer that sets up the config directory would be better.
     utils::create_config_directory_if_doesnt_exist();
@@ -74,7 +75,8 @@ fn store_credentials_file(content: String) {
 */
 fn read_credentials_file(content: String) -> () {
     // Build a file path based on the server url.
-    let file_path = utils::get_config_file_path(content);
+    let path = utils::config_filename_from_server_url(content);
+    let file_path = utils::get_config_file_path(path);
 
     match File::open(file_path) {
         Err(why) => {

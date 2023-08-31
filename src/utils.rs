@@ -1,7 +1,7 @@
 use serde_json::Value;
 use std::fs;
 use std::path::Path;
-
+use url::Url;
 /**
  * Get the full filename from the docker server url.
  *
@@ -9,10 +9,22 @@ use std::path::Path;
  * @return The full file path.
 */
 pub fn config_filename_from_server_url(url: String) -> String {
-    let replaced = url.replace("/", "%2F");
-    let file_path = get_config_file_path(replaced);
+    let formatted_url;
 
-    file_path
+    // For some reason Docker is not consistent with what it sends, sometimes it's base path, sometimes it's
+    // the full URL, so we need to make sure everything is parsed to a base url kind of format.
+
+    // Here we ensure that the URL starts with https to make the Url::parse method happy :)
+    if !url.starts_with("http://") && !url.starts_with("https://") {
+        formatted_url = format!("https://{}", url);
+    } else {
+        formatted_url = url;
+    }
+
+    let parsed_url = Url::parse(formatted_url.as_str()).expect("Failed to parse URL");
+    let base_url = parsed_url.host_str().expect("No host in URL");
+
+    return String::from(base_url);
 }
 
 /**
