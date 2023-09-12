@@ -53,8 +53,11 @@ fn store_credentials_file(content: String) {
             config = json;
 
             let server_url = utils::get_key_from_config_value(&config, "ServerURL");
-            // Escape the url backslashes, so it can be a directory
-            let file_path = utils::config_filename_from_server_url(server_url.to_string());
+            // Escape the url backslashes, so it can be a directory.
+            let mut file_path = utils::config_filename_from_server_url(server_url.to_string());
+
+            // Prefix with the config directory.
+            file_path = utils::get_config_file_path(file_path);
 
             // Create the file.
             let file_path = Path::new(&file_path);
